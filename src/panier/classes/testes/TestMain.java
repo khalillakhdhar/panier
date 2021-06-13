@@ -16,9 +16,9 @@ public class TestMain {
 		Client cl=new Client(123, "Ali", "Ahmed", "Gabes", null);
 		//cl.addClient();
 		Famille f=new Famille();
-		f.setNumFam(12);
-		Produit p=new Produit(12, "Tomate",800, f);
-		//p.addproduit();
+		f.setNumFam(14);
+		Produit p=new Produit(13, "Beure",800, f);
+		p.addproduit();
 	ResultSet res=p.aff();
 	while(res.next())
 	{
