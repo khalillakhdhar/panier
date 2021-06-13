@@ -32,7 +32,14 @@ public class AuthServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int numero=Integer.parseInt(request.getParameter("numero"));
+String nom=request.getParameter("nom");
+String prenom=request.getParameter("prenom");
+String adresse=request.getParameter("adresse");
+Client client=new Client(numero, nom, prenom, adresse, null);
+	client.addClient();
+	response.sendRedirect("index.jsp");
+	
 	}
 
 	/**

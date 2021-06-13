@@ -12,7 +12,7 @@
 <form method="post" action="AuthServlet">
 Votre numéro client svp<input type="number" name="id">
 <input type="submit" class="btn btn-success" value="connexion"> 
-
+<a href="signup.jsp">s'inscrire</a>
 </form>
 
 </body>
