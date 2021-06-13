@@ -2,7 +2,9 @@ package panier.classes;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -35,7 +37,7 @@ public class Produit implements Serializable {
     private String nomPro;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "puProd")
-    private BigDecimal puProd;
+    private int puProd;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produit")
     private List<Lignecommande> lignecommandeList;
     @JoinColumn(name = "famPro", referencedColumnName = "numFam")
@@ -65,11 +67,11 @@ public class Produit implements Serializable {
         this.nomPro = nomPro;
     }
 
-    public BigDecimal getPuProd() {
+    public int getPuProd() {
         return puProd;
     }
 
-    public void setPuProd(BigDecimal puProd) {
+    public void setPuProd(int puProd) {
         this.puProd = puProd;
     }
 
@@ -113,4 +115,34 @@ public class Produit implements Serializable {
     public String toString() {
         return "teste.Produit[ numPro=" + numPro + " ]";
     }
-}
+    
+  public Produit(Integer numPro, String nomPro, int puProd, Famille famPro) {
+		this.numPro = numPro;
+		this.nomPro = nomPro;
+		this.puProd = puProd;
+		this.famPro = famPro;
+	}
+
+public void addproduit()
+  {
+	  try {
+	    	// TODO add your handling code here:
+	    	Connexion c= new Connexion();
+	    	java.sql.PreparedStatement statement = c.conn.prepareStatement("INSERT INTO `produit`(`numPro`, `nomPro`, `puProd`, `famPro`) VALUES ('"+this.getNumPro()+"','"+ this.getNomPro()+"','"+this.getPuProd()+"','"+this.getFamPro().getNumFam()+"')");
+	    	statement.executeUpdate();
+
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex);
+	    	 }
+  }
+	 public  ResultSet aff() throws SQLException
+	  {
+	  Connexion c=new Connexion();
+	  PreparedStatement pst;
+	  pst = (PreparedStatement) c.conn.prepareStatement("SELECT * FROM produit");
+	  pst.executeQuery();
+	  ResultSet rs = (ResultSet) pst.executeQuery();
+	  return rs;
+	}
+  }
+    
